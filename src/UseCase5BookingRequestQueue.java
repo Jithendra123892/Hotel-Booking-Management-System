@@ -9,61 +9,59 @@ import java.util.*;
  * @author Jithendra
  * @version 5.0
  */
-
-// -------- Reservation Class --------
-class Reservation {
-    private String guestName;
-    private String roomType;
-
-    public Reservation(String guestName, String roomType) {
-        this.guestName = guestName;
-        this.roomType = roomType;
-    }
-
-    public String getGuestName() {
-        return guestName;
-    }
-
-    public String getRoomType() {
-        return roomType;
-    }
-
-    public void display() {
-        System.out.println("Guest: " + guestName + " | Room Type: " + roomType);
-    }
-}
-
-// -------- Booking Queue --------
-class BookingRequestQueue {
-    private Queue<Reservation> queue;
-
-    public BookingRequestQueue() {
-        queue = new LinkedList<>();
-    }
-
-    // Add booking request
-    public void addRequest(Reservation reservation) {
-        queue.offer(reservation);
-        System.out.println("Request added for: " + reservation.getGuestName());
-    }
-
-    // Display all requests (FIFO order)
-    public void displayQueue() {
-        System.out.println("\n--- Booking Requests (FIFO Order) ---");
-
-        if (queue.isEmpty()) {
-            System.out.println("No booking requests available.");
-            return;
-        }
-
-        for (Reservation r : queue) {
-            r.display();
-        }
-    }
-}
-
-// -------- Main Class --------
 public class UseCase5BookingRequestQueue {
+
+    // -------- Reservation Class --------
+    static class Reservation {
+        private String guestName;
+        private String roomType;
+
+        public Reservation(String guestName, String roomType) {
+            this.guestName = guestName;
+            this.roomType = roomType;
+        }
+
+        public String getGuestName() {
+            return guestName;
+        }
+
+        public String getRoomType() {
+            return roomType;
+        }
+
+        public void display() {
+            System.out.println("Guest: " + guestName + " | Room Type: " + roomType);
+        }
+    }
+
+    // -------- Booking Queue --------
+    static class BookingRequestQueue {
+        private Queue<Reservation> queue;
+
+        public BookingRequestQueue() {
+            queue = new LinkedList<>();
+        }
+
+        // Add booking request
+        public void addRequest(Reservation reservation) {
+            queue.offer(reservation);
+            System.out.println("Request added for: " + reservation.getGuestName());
+        }
+
+        // Display all requests (FIFO order)
+        public void displayQueue() {
+            System.out.println("\n--- Booking Requests (FIFO Order) ---");
+
+            if (queue.isEmpty()) {
+                System.out.println("No booking requests available.");
+                return;
+            }
+
+            for (Reservation r : queue) {
+                r.display();
+            }
+        }
+    }
 
     public static void main(String[] args) {
 

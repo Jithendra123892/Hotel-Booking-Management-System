@@ -10,92 +10,90 @@ import java.util.*;
  * @author Jithendra
  * @version 7.0
  */
+public class UseCase7AddOnServiceSelection {
 
-// -------- Reservation --------
-class Reservation {
-    private String reservationId;
-    private String guestName;
+    // -------- Reservation --------
+    static class Reservation {
+        private String reservationId;
+        private String guestName;
 
-    public Reservation(String reservationId, String guestName) {
-        this.reservationId = reservationId;
-        this.guestName = guestName;
-    }
-
-    public String getReservationId() {
-        return reservationId;
-    }
-
-    public String getGuestName() {
-        return guestName;
-    }
-}
-
-// -------- Add-On Service --------
-class AddOnService {
-    private String serviceName;
-    private double cost;
-
-    public AddOnService(String serviceName, double cost) {
-        this.serviceName = serviceName;
-        this.cost = cost;
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-}
-
-// -------- Service Manager --------
-class AddOnServiceManager {
-
-    // Map: Reservation ID → List of Services
-    private Map<String, List<AddOnService>> serviceMap = new HashMap<>();
-
-    // Add service to reservation
-    public void addService(String reservationId, AddOnService service) {
-        serviceMap.putIfAbsent(reservationId, new ArrayList<>());
-        serviceMap.get(reservationId).add(service);
-
-        System.out.println("Added service: " + service.getServiceName() +
-                " to Reservation ID: " + reservationId);
-    }
-
-    // Display services
-    public void displayServices(String reservationId) {
-        System.out.println("\nServices for Reservation ID: " + reservationId);
-
-        List<AddOnService> services = serviceMap.get(reservationId);
-
-        if (services == null || services.isEmpty()) {
-            System.out.println("No services selected.");
-            return;
+        public Reservation(String reservationId, String guestName) {
+            this.reservationId = reservationId;
+            this.guestName = guestName;
         }
 
-        for (AddOnService s : services) {
-            System.out.println("- " + s.getServiceName() + " (₹" + s.getCost() + ")");
+        public String getReservationId() {
+            return reservationId;
+        }
+
+        public String getGuestName() {
+            return guestName;
         }
     }
 
-    // Calculate total cost
-    public double calculateTotalCost(String reservationId) {
-        List<AddOnService> services = serviceMap.get(reservationId);
+    // -------- Add-On Service --------
+    static class AddOnService {
+        private String serviceName;
+        private double cost;
 
-        double total = 0;
-        if (services != null) {
+        public AddOnService(String serviceName, double cost) {
+            this.serviceName = serviceName;
+            this.cost = cost;
+        }
+
+        public String getServiceName() {
+            return serviceName;
+        }
+
+        public double getCost() {
+            return cost;
+        }
+    }
+
+    // -------- Service Manager --------
+    static class AddOnServiceManager {
+
+        // Map: Reservation ID → List of Services
+        private Map<String, List<AddOnService>> serviceMap = new HashMap<>();
+
+        // Add service to reservation
+        public void addService(String reservationId, AddOnService service) {
+            serviceMap.putIfAbsent(reservationId, new ArrayList<>());
+            serviceMap.get(reservationId).add(service);
+
+            System.out.println("Added service: " + service.getServiceName() +
+                    " to Reservation ID: " + reservationId);
+        }
+
+        // Display services
+        public void displayServices(String reservationId) {
+            System.out.println("\nServices for Reservation ID: " + reservationId);
+
+            List<AddOnService> services = serviceMap.get(reservationId);
+
+            if (services == null || services.isEmpty()) {
+                System.out.println("No services selected.");
+                return;
+            }
+
             for (AddOnService s : services) {
-                total += s.getCost();
+                System.out.println("- " + s.getServiceName() + " (\u20b9" + s.getCost() + ")");
             }
         }
-        return total;
-    }
-}
 
-// -------- Main --------
-public class UseCase7AddOnServiceSelection {
+        // Calculate total cost
+        public double calculateTotalCost(String reservationId) {
+            List<AddOnService> services = serviceMap.get(reservationId);
+
+            double total = 0;
+            if (services != null) {
+                for (AddOnService s : services) {
+                    total += s.getCost();
+                }
+            }
+            return total;
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -124,6 +122,6 @@ public class UseCase7AddOnServiceSelection {
 
         // Total cost
         double total = manager.calculateTotalCost(reservation.getReservationId());
-        System.out.println("\nTotal Add-On Cost: ₹" + total);
+        System.out.println("\nTotal Add-On Cost: \u20b9" + total);
     }
 }
